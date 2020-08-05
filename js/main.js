@@ -90,19 +90,19 @@ function handleError(error) {
 }
 
 function start() {
-  // if (window.stream) {
-  //   window.stream.getTracks().forEach(track => {
-  //     track.stop();
-  //   });
-  // }
-  // const audioSource = audioInputSelect.value;
-  // const videoSource = videoSelect.value;
-  // const constraints = {
-  //   audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-  //   video: {deviceId: videoSource ? {exact: videoSource} : undefined}
-  // };
-  //navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
-  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+  if (window.stream) {
+    window.stream.getTracks().forEach(track => {
+      track.stop();
+    });
+  }
+  const audioSource = audioInputSelect.value;
+  const videoSource = videoSelect.value;
+  const constraints = {
+    audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
+    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+  };
+  navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+  //navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 
 }
 
