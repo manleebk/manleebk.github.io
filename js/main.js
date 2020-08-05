@@ -48,7 +48,7 @@ function gotDevices(deviceInfos) {
   });
 }
 
-//navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 
 // Attach audio output device to video element using device/sink ID.
 function attachSinkId(element, sinkId) {
@@ -99,7 +99,7 @@ function start() {
     audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
-  navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+  //navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }
 
 audioInputSelect.onchange = start;
