@@ -21,6 +21,7 @@ function gotDevices(deviceInfos) {
   const values = selectors.map(select => select.value);
   selectors.forEach(select => {
     while (select.firstChild) {
+      console.log('------------', select);
       select.removeChild(select.firstChild);
     }
   });
