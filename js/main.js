@@ -101,7 +101,7 @@ function start() {
     audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
-  navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+  navigator.mediaDevices.getUserMedia().then(gotStream).then(gotDevices).catch(handleError);
 }
 
 audioInputSelect.onchange = start;
