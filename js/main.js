@@ -21,7 +21,7 @@ function gotDevices(deviceInfos) {
   const values = selectors.map(select => select.value);
   selectors.forEach(select => {
     while (select.firstChild) {
-      console.log('------------', select);
+      console.warn(select);
       select.removeChild(select.firstChild);
     }
   });
@@ -49,7 +49,7 @@ function gotDevices(deviceInfos) {
   });
 }
 
-navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+//navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 
 // Attach audio output device to video element using device/sink ID.
 function attachSinkId(element, sinkId) {
@@ -78,7 +78,6 @@ function changeAudioDestination() {
 }
 
 function gotStream(stream) {
-  console.log('get stream-----------');
   window.stream = stream; // make stream available to console
   videoElement.srcObject = stream;
   // Refresh button list in case labels have become available
@@ -102,8 +101,6 @@ function start() {
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
   navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
-  //navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
-
 }
 
 audioInputSelect.onchange = start;
