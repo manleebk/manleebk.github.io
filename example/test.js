@@ -8,23 +8,23 @@
 //     },
 // };
 
-// const options = {
-//     hosts: {
-//         domain: 'https://beta.meet.jit.si', // https://meet.jit.si
-//         muc: 'conference.beta.meet.jit.si'
-//     },
-//     bosh: 'https://beta.meet.jit.si/http-bind', // FIXME: use xep-0156 for that
-//       // The name of client node advertised in XEP-0115 'c' stanza
-//     //clientNode: 'https://beta.meet.jit.si',
-// };
-
 const options = {
     hosts: {
-        domain: 'https://jitsi-vs.saver.jp',
-        muc: 'conference.jitsi-vs.saver.jp'
+        domain: 'https://beta.meet.jit.si', // https://meet.jit.si
+        muc: 'conference.beta.meet.jit.si'
     },
-    bosh: 'https://jitsi-vs.saver.jp/http-bind',
+    bosh: 'https://beta.meet.jit.si/http-bind', // FIXME: use xep-0156 for that
+      // The name of client node advertised in XEP-0115 'c' stanza
+    //clientNode: 'https://beta.meet.jit.si',
 };
+
+// const options = {
+//     hosts: {
+//         domain: 'https://jitsi-vs.saver.jp',
+//         muc: 'conference.jitsi-vs.saver.jp'
+//     },
+//     bosh: 'https://jitsi-vs.saver.jp/http-bind',
+// };
 
 const confOptions = {
     openBridgeChannel: true
