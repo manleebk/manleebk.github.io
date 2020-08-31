@@ -1,3 +1,13 @@
+
+const options = {
+    hosts: {
+        domain: 'beta.meet.jit.si',
+        muc: 'conference.beta.meet.jit.si'
+    },
+    bosh: 'https://beta.meet.jit.si/http-bind'
+};
+
+
 /* global $, JitsiMeetJS */
 
 // const options = {
@@ -8,23 +18,27 @@
 //     },
 // };
 
-const options = {
-    hosts: {
-        domain: 'https://beta.meet.jit.si', // https://meet.jit.si
-        muc: 'conference.beta.meet.jit.si'
-    },
-    bosh: 'https://beta.meet.jit.si/http-bind', // FIXME: use xep-0156 for that
-      // The name of client node advertised in XEP-0115 'c' stanza
-    //clientNode: 'https://beta.meet.jit.si',
-};
+// const options = {
+//     hosts: {
+//         domain: 'https://beta.meet.jit.si', // https://meet.jit.si
+//         muc: 'conference.beta.meet.jit.si'
+//     },
+//     bosh: 'https://beta.meet.jit.si/http-bind', // FIXME: use xep-0156 for that
+//       // The name of client node advertised in XEP-0115 'c' stanza
+//     //clientNode: 'https://beta.meet.jit.si',
+// };
 
 // const options = {
 //     hosts: {
-//         domain: 'https://jitsi-vs.saver.jp',
+//         domain: 'jitsi-vs.saver.jp',
 //         muc: 'conference.jitsi-vs.saver.jp'
 //     },
-//     bosh: 'https://jitsi-vs.saver.jp/http-bind',
+//     bosh: 'https://jitsi-vs.saver.jp/http-bind'
 // };
+
+
+
+console.log(options);
 
 const confOptions = {
     openBridgeChannel: true
@@ -42,8 +56,8 @@ const initOptions = {
     disableAudioLevels: true
 };
 
-/* $(window).bind('beforeunload', unload);
-$(window).bind('unload', unload); */
+// $(window).bind('beforeunload', unload);
+// $(window).bind('unload', unload);
 
 //-------------------------------------------------------
 // config input device
@@ -87,11 +101,12 @@ if (JitsiMeetJS.mediaDevices.isDeviceChangeAvailable('output')) {
 //-------------------------------------------------------------------------------------
 
 /**
- * That function is called when connection is established successfully
- */
+* That function is called when connection is established successfully
+*/
 function onConnectionSuccess() {
-    console.info('Connected successfully !!!!');
-    room = connection.initJitsiConference('conference', confOptions);
+    console.warn('Connected successfully !!!!');
+
+    room = connection.initJitsiConference('test_ae', confOptions);
     room.on(JitsiMeetJS.events.conference.TRACK_ADDED, onRemoteTrack);
     room.on(JitsiMeetJS.events.conference.TRACK_REMOVED, track => {
         console.log(`track removed!!!${track}`);
@@ -118,8 +133,8 @@ function onConnectionSuccess() {
 }
 
 /**
- * This function is called when the connection fail.
- */
+* This function is called when the connection fail.
+*/
 function onConnectionFailed(errType, msg) {
     console.warn(errType);
     console.warn(msg);
@@ -128,8 +143,8 @@ function onConnectionFailed(errType, msg) {
 
 
 /**
- * This function is called when we disconnect.
- */
+* This function is called when we disconnect.
+*/
 function disconnect() {
     console.log('disconnect!');
     connection.removeEventListener(JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED, onConnectionSuccess);
@@ -138,15 +153,15 @@ function disconnect() {
 }
 
 /**
- * This function is called when the connection fail.
- */
+* This function is called when the connection fail.
+*/
 function onDeviceListChanged(devices) {
     console.info('current devices', devices);
 }
 
 /**
- *
- */
+*
+*/
 function unload() {
     for (let i = 0; i < localTracks.length; i++) {
         localTracks[i].dispose();
@@ -159,8 +174,8 @@ function unload() {
 let isVideo = true;
 
 /**
- *
- */
+*
+*/
 function switchVideo() { // eslint-disable-line no-unused-vars
     isVideo = !isVideo;
     if (localTracks[1]) {
@@ -168,7 +183,7 @@ function switchVideo() { // eslint-disable-line no-unused-vars
         localTracks.pop();
     }
     JitsiMeetJS.createLocalTracks({
-        devices: [ isVideo ? 'video' : 'desktop' ]
+        devices: [isVideo ? 'video' : 'desktop']
     })
         .then(tracks => {
             localTracks.push(tracks[0]);
@@ -185,18 +200,18 @@ function switchVideo() { // eslint-disable-line no-unused-vars
 }
 
 /**
- *
- * @param selected
- */
+*
+* @param selected
+*/
 function changeAudioOutput(selected) { // eslint-disable-line no-unused-vars
     JitsiMeetJS.mediaDevices.setAudioOutputDevice(selected.value);
 }
 
 
 /**
- * Handles local tracks.
- * @param tracks Array with JitsiTrack objects
- */
+* Handles local tracks.
+* @param tracks Array with JitsiTrack objects
+*/
 function onLocalTracks(tracks) {
     localTracks = tracks;
     for (let i = 0; i < localTracks.length; i++) {
@@ -229,9 +244,9 @@ function onLocalTracks(tracks) {
 }
 
 /**
- * Handles remote tracks
- * @param track JitsiTrack object
- */
+* Handles remote tracks
+* @param track JitsiTrack object
+*/
 function onRemoteTrack(track) {
     if (track.isLocal()) {
         return;
@@ -269,10 +284,10 @@ function onRemoteTrack(track) {
 }
 
 /**
- * That function is executed when the conference is joined
- */
+* That function is executed when the conference is joined
+*/
 function onConferenceJoined() {
-    console.log('conference joined!');
+    console.warn('conference joined!');
     isJoined = true;
     for (let i = 0; i < localTracks.length; i++) {
         room.addTrack(localTracks[i]);
@@ -280,11 +295,11 @@ function onConferenceJoined() {
 }
 
 /**
- *
- * @param id
- */
+*
+* @param id
+*/
 function onUserLeft(id) {
-    console.log('user left');
+    console.warn('user left');
     if (!remoteTracks[id]) {
         return;
     }
