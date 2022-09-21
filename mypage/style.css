@@ -20,6 +20,10 @@ body {
   align-items: center;
 }
 
+.container {
+    margin: 0 auto;
+}
+
 .wrapper {
   position: relative;
   flex-grow: 1;
