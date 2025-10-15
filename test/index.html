@@ -12,7 +12,7 @@
 
     const client_id = "790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
     function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
+      console.log("Encoded JWT ID token:>>>> " + response.credential);
       localStorage.setItem("google_id_token", response.credential);
     }
     window.onload = function () {
