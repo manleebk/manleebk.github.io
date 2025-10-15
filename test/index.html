@@ -12,11 +12,13 @@
 
     const client_id = "790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
     function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response);
+      console.log("Encoded JWT ID token: " + response.credential);
     }
     window.onload = function () {
       google.accounts.id.initialize({
         client_id: client_id,
+        auto_select: false,       // tùy chọn: tự đăng nhập nếu người dùng có tài khoản
+        cancel_on_tap_outside: false, // tùy chọn: không tắt One Tap khi click ra ngoài
         callback: handleCredentialResponse
       });
       google.accounts.id.renderButton(
