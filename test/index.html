@@ -14,12 +14,13 @@
     function handleCredentialResponse(response) {
       console.log("Encoded JWT ID token:>>>> " + response.credential);
       localStorage.setItem("google_id_token", response.credential);
+      //
+      requestAccessToken();
     }
     window.onload = function () {
       google.accounts.id.initialize({
         client_id: client_id,
         auto_select: false,       // tùy chọn: tự đăng nhập nếu người dùng có tài khoản
-        cancel_on_tap_outside: false, // tùy chọn: không tắt One Tap khi click ra ngoài
         callback: handleCredentialResponse
       });
       google.accounts.id.renderButton(
