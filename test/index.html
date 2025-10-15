@@ -13,6 +13,7 @@
     const client_id = "790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
     function handleCredentialResponse(response) {
       console.log("Encoded JWT ID token: " + response.credential);
+      localStorage.setItem("google_id_token", response.credential);
     }
     window.onload = function () {
       google.accounts.id.initialize({
@@ -25,7 +26,9 @@
         document.getElementById("buttonDiv"),
         { theme: "outline", size: "large" }  // customization attributes
       );
-      google.accounts.id.prompt(); // also display the One Tap dialog
+      if (!localStorage.getItem("google_id_token")) {
+        google.accounts.id.prompt();
+      }
 
     }
 
@@ -37,6 +40,7 @@
           scope: "https://www.googleapis.com/auth/classroom.courses.readonly",
           callback: (response) => {
             console.log("Access token:", response.access_token);
+
           },
         });
         client.requestAccessToken({ prompt: "" });
@@ -44,7 +48,7 @@
   </script>
   <div id="g_id_onload"
       data-client_id="790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
-      data-login_uri="/"
+      data-login_uri="#"
       data-auto_prompt="false">
   </div>
   <div class="g_id_signin"
