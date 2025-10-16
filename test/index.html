@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script src="https://accounts.google.com/gsi/client" async></script>
-  <script>
-
-    const client_id = "790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
-    function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token:>>>> " + response.credential);
-      localStorage.setItem("google_id_token", response.credential);
-      //
-      requestAccessToken();
-    }
-    window.onload = function () {
-      google.accounts.id.initialize({
-        client_id: client_id,
-        auto_select: false,       // tùy chọn: tự đăng nhập nếu người dùng có tài khoản
-        callback: handleCredentialResponse
-      });
-      google.accounts.id.renderButton(
-        document.getElementById("buttonDiv"),
-        { theme: "outline", size: "large" }  // customization attributes
-      );
-      if (!localStorage.getItem("google_id_token")) {
-        google.accounts.id.prompt();
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+      const client_id =
+        "790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com";
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token:>>>> " + response.credential);
+        localStorage.setItem("google_id_token", response.credential);
+        //
+        requestAccessToken();
       }
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id: client_id,
+          auto_select: false, // tùy chọn: tự đăng nhập nếu người dùng có tài khoản
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("buttonDiv"),
+          { theme: "outline", size: "large", prompt_parent_id: "buttonDiv" } // customization attributes
+        );
+        if (!localStorage.getItem("google_id_token")) {
+          google.accounts.id.prompt();
+        }
+      };
 
-    }
-
-
-    // 2️⃣ Khi cần truy cập dữ liệu (ví dụ Google Drive)
-    function requestAccessToken() {
+      // 2️⃣ Khi cần truy cập dữ liệu (ví dụ Google Drive)
+      function requestAccessToken() {
         const client = google.accounts.oauth2.initTokenClient({
           client_id: client_id,
           scope: "https://www.googleapis.com/auth/classroom.courses.readonly",
           callback: (response) => {
             console.log("Access token:", response.access_token);
-
           },
         });
         client.requestAccessToken({ prompt: "" });
       }
-  </script>
-  <div id="g_id_onload"
-      data-client_id="790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
-      data-login_uri="#"
-      data-auto_prompt="false">
-  </div>
-  <div class="g_id_signin"
-      data-type="standard"
-      data-size="large"
-      data-theme="outline"
-      data-text="sign_in_with"
-      data-shape="rectangular"
-      data-logo_alignment="left">
-  </div>
+    </script>
+    <div id="buttonDiv">
+      <div
+        id="g_id_onload"
+        data-client_id="790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
+        data-login_uri="#"
+        data-auto_prompt="false"
+      ></div>
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left"
+      ></div>
+    </div>
 
-  <button onclick="requestAccessToken()">Request Access Token</button>
-
-</body>
+    <button onclick="requestAccessToken()">Request Access Token</button>
+  </body>
 </html>
