@@ -15,7 +15,7 @@
         console.log("Encoded JWT ID token:>>>> " + response.credential);
         localStorage.setItem("google_id_token", response.credential);
         //
-        requestAccessToken();
+        // requestAccessToken();
       }
       window.onload = function () {
         google.accounts.id.initialize({
@@ -25,7 +25,7 @@
         });
         google.accounts.id.renderButton(
           document.getElementById("buttonDiv"),
-          { theme: "outline", size: "large", prompt_parent_id: "buttonDiv" } // customization attributes
+          { theme: "outline", size: "large" } // customization attributes
         );
         if (!localStorage.getItem("google_id_token")) {
           google.accounts.id.prompt();
@@ -44,23 +44,23 @@
         client.requestAccessToken({ prompt: "" });
       }
     </script>
-    <div id="buttonDiv">
-      <div
-        id="g_id_onload"
-        data-client_id="790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
-        data-login_uri="#"
-        data-auto_prompt="false"
-      ></div>
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-size="large"
-        data-theme="outline"
-        data-text="sign_in_with"
-        data-shape="rectangular"
-        data-logo_alignment="left"
-      ></div>
-    </div>
+
+    <div id="buttonDiv"></div>
+    <!-- <div
+      id="g_id_onload"
+      data-client_id="790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com"
+      data-login_uri="#"
+      data-auto_prompt="false"
+    ></div>
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"
+    ></div> -->
 
     <button onclick="requestAccessToken()">Request Access Token</button>
   </body>
