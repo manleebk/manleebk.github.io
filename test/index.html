@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
-    <script src="https://accounts.google.com/gsi/client" async></script>
     <script>
       const client_id =
         "790839183405-nvmladgval1fqno71bt9j3j4kp5t6m6f.apps.googleusercontent.com";
@@ -15,12 +15,12 @@
         console.log("Encoded JWT ID token:>>>> " + response.credential);
         localStorage.setItem("google_id_token", response.credential);
         //
-        // requestAccessToken();
+        requestAccessToken();
       }
       window.onload = function () {
         google.accounts.id.initialize({
           client_id: client_id,
-          auto_select: false, // tùy chọn: tự đăng nhập nếu người dùng có tài khoản
+          auto_select: false,
           callback: handleCredentialResponse,
         });
         google.accounts.id.renderButton(
