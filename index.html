@@ -5,23 +5,34 @@
     <title>Safari FAIL - Chrome OK</title>
   </head>
   <body>
-    <h2>Test mailto vượt giới hạn Safari</h2>
+    <h2>Test mailto vượt giới hạn Safari iPhone</h2>
     <button onclick="openMail()">Gửi Email cực dài</button>
+
+    <h3>mailto URL:</h3>
+    <pre
+      id="mailtoOutput"
+      style="white-space: pre-wrap; word-break: break-all"
+    ></pre>
 
     <script>
       function openMail() {
-        // Tạo chuỗi dài gồm tiếng Nhật + emoji (~500 ký tự) → URL > 5000 ký tự
-        const jpText = "これは非常に長い日本語のテキストです🚀🔥💥".repeat(50);
+        // Tạo chuỗi dài gồm tiếng Nhật + emoji (~1200 ký tự × 10 lần = >12.000 ký tự URL)
+        const jpText =
+          "これは非常に長い日本語ccvv&*wwwwwwwこれはここ🚀🔥💥🌈✨".repeat(150);
 
         const subject = encodeURIComponent("テスト - Safari FAIL, Chrome OK");
         const body = encodeURIComponent(jpText);
 
         const mailtoURL = `mailto:test@example.com?subject=${subject}&body=${body}`;
 
-        console.log("URL length:", mailtoURL.length); // > 5000 ký tự
+        // Hiển thị URL ra màn hình
+        const outputEl = document.getElementById("mailtoOutput");
+        outputEl.innerText = mailtoURL.length;
 
+        console.log("URL length:", mailtoURL.length); // > 12.000 ký tự
+
+        // Chuyển hướng để mở Mail app
         window.location.href = mailtoURL;
-        // Hoặc thử window.open(mailtoURL)
       }
     </script>
   </body>
