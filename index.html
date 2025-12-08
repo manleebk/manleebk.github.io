@@ -2,30 +2,26 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Chrome OK - Safari FAIL (Japanese)</title>
+    <title>Safari FAIL - Chrome OK</title>
   </head>
   <body>
-    <h2>Test mailto với ký tự tiếng Nhật</h2>
-    <button onclick="openMail()">Gửi Email chứa tiếng Nhật</button>
+    <h2>Test mailto vượt giới hạn Safari</h2>
+    <button onclick="openMail()">Gửi Email cực dài</button>
 
     <script>
       function openMail() {
-        // Chuỗi tiếng Nhật dài (~250 ký tự)
-        const jpText =
-          "これは非常に長い日本語のテキストです。".repeat(10) +
-          "\n\nさらに日本語の文章を追加してSafariを壊します。".repeat(10);
+        // Tạo chuỗi dài gồm tiếng Nhật + emoji (~500 ký tự) → URL > 5000 ký tự
+        const jpText = "これは非常に長い日本語のテキストです🚀🔥💥".repeat(50);
 
-        // Encode
-        const subject = encodeURIComponent(
-          "日本語テスト - Chrome OK / Safari FAIL"
-        );
+        const subject = encodeURIComponent("テスト - Safari FAIL, Chrome OK");
         const body = encodeURIComponent(jpText);
 
-        const url = `mailto:test@example.com?subject=${subject}&body=${body}`;
+        const mailtoURL = `mailto:test@example.com?subject=${subject}&body=${body}`;
 
-        console.log("URL length:", url.length); // khoảng 3000–3500 ký tự
+        console.log("URL length:", mailtoURL.length); // > 5000 ký tự
 
-        window.open(url);
+        window.location.href = mailtoURL;
+        // Hoặc thử window.open(mailtoURL)
       }
     </script>
   </body>
